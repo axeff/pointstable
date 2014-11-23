@@ -1,0 +1,42 @@
+@font-face {
+    font-family: digital;
+    src: url(/fonts/Digital-Dismay.otf);
+}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #000000;
+  color:#FFF;
+}
+
+html,body{ margin:0; padding:0; height:100%; width:100%; }
+
+#teams span {
+    text-transform: capitalize;
+    font-size: 6vw;
+}
+#frontend #points {
+    font-family: digital;
+    font-size: 40vw;
+}
+.clear {
+    clear: both;
+}
+
+.left, .dleft {
+    float: left;
+}
+
+.right, .dright {
+    float: right;
+}
+
+.center {
+    text-align: center;
+}
+
+#footer {
+    position: fixed;
+    bottom: 4em;
+    left: 45%;
+}

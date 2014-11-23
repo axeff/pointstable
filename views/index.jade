@@ -1,0 +1,53 @@
+extends layout
+
+block content
+    #frontend
+        #teams
+            .left
+                span#team1= 'Team 1'
+            .right
+                span#team2= 'Team 2'
+
+        .clear
+
+        #points
+            .digits
+                span.left
+                    div(class="digit _0 dleft team1") 00
+
+                span.right
+                    div(class="digit _0 dright team2") 00
+
+    script(src='/javascripts/jquery.ba-hashchange.min.js')
+    script.
+        io.emit('registerViewer');
+
+        $(window).unload(function(){
+            io.emit('unregisterViewer');
+        });
+
+        io.on('mirror', function(){
+           $('.left,.right').toggleClass('right left');
+        });
+
+        $(window).bind('hashchange', function(event, data) {
+            $('.left,.right').toggleClass('right left');
+        });
+
+        // Listen for the points event.
+        io.on('game', function(data) {
+            $.each(data.message, function(key,value){
+                if (key.indexOf("points") > -1) {
+                    var newKey = key.replace('points','');
+                    if (value <= 9){
+                        value = 0 + String(value);
+                    }
+                    $('#points .digits .' + newKey).html(value);
+                } else {
+                    $('#' + key).html(value);
+                }
+
+            });
+        })
+
+        io.emit('ready') ;

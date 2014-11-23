@@ -1,0 +1,126 @@
+extends layout
+
+block append head
+    script(src='/javascripts/input.js')
+    script(src='/javascripts/timer.js')
+    script(src='/javascripts/bootstrap.min.js')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/input.css')
+
+block content
+    style.
+        body {
+            background-color: #FFF;
+            color: #666;
+        }
+    #content.container-fluid
+        .row
+            .col-md-4.col-xs-6
+                .panel.panel-primary
+                    .panel-heading
+                        h3.panel-title Team 1
+                    .panel-body
+                        div(data-role='fieldcontain',class='form-group')
+                            input(id='team1',type='text',value='',class="form-control",disabled="disabled")
+                        div(data-role='fieldcontain',class='form-group')
+                            label(for='pointsteam1') Tore
+                            .well.well-sm
+                                fieldset(data-role='controlgroup',class='left', id="pointsteam1")
+                                    button(type="button",class="btn btn-primary goals minus",data-val="-1",data-id="team1")
+                                        span.glyphicon.glyphicon-minus
+                                    button(type="button",class="btn btn-primary goals plus",data-val="+1",data-id="team1")
+                                        span.glyphicon.glyphicon-plus
+                                .right#goalsteam1
+                                    h3(style='margin-top:3px !important;')
+                                        span(class='label label-warning', style='font-size: 24px !important;') 0
+                                .clear
+
+            .col-md-4.col-md-push-4.col-xs-6
+                .panel.panel-primary
+                    .panel-heading
+                        h3.panel-title Team 2
+                    .panel-body
+                        div(data-role='fieldcontain',class='form-group')
+                            input(id='team2',type='text',value='',class="form-control",disabled="disabled")
+                        div(data-role='fieldcontain',class='form-group')
+                            label(for='pointsteam2') Tore
+                            .well.well-sm
+                                fieldset(data-role='controlgroup',class='left', id="pointsteam2")
+                                    button(type="button",class="btn btn-primary goals minus",data-val="-1",data-id="team2")
+                                        span.glyphicon.glyphicon-minus
+                                    button(type="button",class="btn btn-primary goals plus",data-val="+1",data-id="team2")
+                                        span.glyphicon.glyphicon-plus
+                                .right#goalsteam2
+                                    h3(style='margin-top:3px !important;')
+                                        span(class='label label-warning', style='font-size: 24px !important;') 0
+                                .clear
+
+            .col-md-4.col-md-pull-4.col-xs-12
+                .panel.panel-primary
+                    .panel-heading
+                        h3.panel-title Zeit
+                    .panel-body
+                        .well.well-sm
+                            fieldset(data-role='controlgroup',class='left')
+                                .left
+                                    button(type="button",class="btn btn-primary controls",id="play")
+                                        span.glyphicon.glyphicon-play
+                                    button(type="button",class="btn btn-primary controls",id="pause")
+                                        span.glyphicon.glyphicon-pause
+                                .btn-group-sm.left(style='margin-left:5px;')
+                                    button(type="button",class="btn btn-sm btn-primary extra-small",id="plusTime")
+                                        span.glyphicon.glyphicon-plus
+                                    button(type="button",class="btn btn-sm btn-primary extra-small",id="minusTime")
+                                        span.glyphicon.glyphicon-minus
+                                .left(style='margin-left:5px;')
+                                    ul(class="nav nav-pills",id="timeMultiplicator")
+                                        li(role="presentation")
+                                            a(href="#", data-id="5") 5
+                                        li(role="presentation")
+                                            a(href="#", data-id="6") 6
+                                        li(role="presentation",class="active")
+                                            a(href="#", data-id="7") 7
+                            button(type="button",class="btn btn-primary",id="refresh")
+                                span.glyphicon.glyphicon-repeat
+                            .right.label.label-warning#timerView 07:00
+                            .clear
+                            .btn-group(role='group', aria-label='...', id="halftimes", style="margin-top: 5px;")
+                                button.btn.btn-default(type='button',class="active",data-id="1sthalf") 1. Halbzeit
+                                button.btn.btn-default(type='button',data-id="pause") Pause
+                                button.btn.btn-default(type='button',data-id="2ndhalf") 2. Halbzeit
+
+                            .clear
+
+                .panel.panel-primary
+                    .panel-heading
+                        h3.panel-title Teams
+                        .bs-glyphicons(style='position:relative;')
+                            span#addTeamName.pointer.glyphicon.glyphicon-plus-sign(aria-hidden="true",style="position: absolute;right: 0px;top: -25px;")
+                    .panel-body
+                        #teamNames
+                            .input-group
+                                span.input-group-addon
+                                    input(type="radio",name="team1")
+                                input(type="text", class="form-control", name="teamName1",placeholder="Teamname", tabindex="1")
+                                span.input-group-addon
+                                    input(type="radio",name="team2")
+                            .input-group
+                                span.input-group-addon
+                                    input(type="radio",name="team1")
+                                input(type="text", class="form-control", name="teamName2", placeholder="Teamname", tabindex="2")
+                                span.input-group-addon
+                                    input(type="radio",name="team2")
+
+                .panel.panel-primary
+                    .panel-heading
+                        h3.panel-title Monitore
+                    .panel-body
+                        ul#viewers.list-group
+
+
+        .clear
+
+
+
+
+
