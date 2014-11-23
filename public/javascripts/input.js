@@ -133,32 +133,32 @@ $(function(){
                     .addClass('danger');
             }
 
-            if (time == -10 && gameState == 'pause') {
+            if (time == -5 && gameState == 'pause') {
                 $('#timerView')
                     .removeClass('danger')
                     .removeClass('blink');
                 $('#halftimes button').removeClass('active');
                 $('#halftimes button[data-id="2ndhalf"]').addClass('active');
-                window.timer.setTimeMinutes($('#timeMultiplicator li.active a').data('id'));
+                this.setTimeMinutes($('#timeMultiplicator li.active a').data('id'));
 
-                window.timer.pause();
+                this.pause();
                 gameState = '2ndhalf';
             }
 
-            if (time == -10 && gameState == '1sthalf') {
+            if (time == -5 && gameState == '1sthalf') {
                 $('#timerView')
                     .removeClass('danger')
                     .removeClass('blink');
                 $('#halftimes button').removeClass('active');
                 $('#halftimes button[data-id="pause"]').addClass('active');
-                window.timer.setTime(110);
-                window.timer.play();
+                this.setTime(115);
+                this.play();
                 gameState = 'pause';
             }
 
 
-            if (time < -10) {
-                window.timer.pause();
+            if (time < -5) {
+                this.pause();
             }
 
 
