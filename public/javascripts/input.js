@@ -137,8 +137,8 @@ $(function(){
                 $('#timerView')
                     .removeClass('danger')
                     .removeClass('blink');
-                $('#halftimes button').removeClass('active');
-                $('#halftimes button[data-id="2ndhalf"]').addClass('active');
+                $('#halftimes li').removeClass('active');
+                $('#halftimes li[data-id="2ndhalf"]').addClass('active');
                 this.setTimeMinutes($('#timeMultiplicator li.active a').data('id'));
 
                 this.pause();
@@ -149,8 +149,8 @@ $(function(){
                 $('#timerView')
                     .removeClass('danger')
                     .removeClass('blink');
-                $('#halftimes button').removeClass('active');
-                $('#halftimes button[data-id="pause"]').addClass('active');
+                $('#halftimes li').removeClass('active');
+                $('#halftimes li[data-id="pause"]').addClass('active');
                 this.setTime(115);
                 this.play();
                 gameState = 'pause';

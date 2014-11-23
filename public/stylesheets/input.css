@@ -80,9 +80,16 @@ ul.nav a {
 }
 
 #timerView {
-    font-size: 50px;
-    position: absolute;
-    right: 40px;
+    font-size: 30px;
+}
+
+#refresh {
+    position: relative;
+    right: 20px;
+}
+
+#halftimes {
+    margin-top: 10px;
 }
 
 .danger {
@@ -124,4 +131,25 @@ ul.nav a {
     0% { opacity: 1.0; }
     50% { opacity: 0.0; }
     100% { opacity: 1.0; }
+}
+
+.led {
+    margin: auto 10px;
+    padding-left: 6px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #f0ad4e;
+    box-shadow: #000 0 -1px 6px 1px, inset #660 0 -1px 8px, #f0ad4e 0 3px 11px;
+}
+
+.led.active {
+    background-color: #5cb85c;
+    box-shadow: #000 0 -1px 6px 1px, inset #460 0 -1px 8px, #5cb85c 0 3px 11px;
+}
+
+.led span.glyphicon {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
 }

@@ -80,15 +80,17 @@ block content
                                             a(href="#", data-id="6") 6
                                         li(role="presentation",class="active")
                                             a(href="#", data-id="7") 7
-                            button(type="button",class="btn btn-primary",id="refresh")
-                                span.glyphicon.glyphicon-repeat
                             .right.label.label-warning#timerView 07:00
+                            button(type="button",class="btn btn-danger btn-lg right",id="refresh")
+                                span.glyphicon.glyphicon-repeat
                             .clear
-                            .btn-group(role='group', aria-label='...', id="halftimes", style="margin-top: 5px;")
-                                button.btn.btn-default(type='button',class="active",data-id="1sthalf") 1. Halbzeit
-                                button.btn.btn-default(type='button',data-id="pause") Pause
-                                button.btn.btn-default(type='button',data-id="2ndhalf") 2. Halbzeit
-
+                            ul(class="nav nav-pills nav-justified",id="halftimes")
+                                li(role="presentation",data-id="1sthalf",class="active")
+                                    a 1. Halbzeit
+                                li(role="presentation",data-id="pause")
+                                    a Pause
+                                li(role="presentation",data-id="2ndhalf")
+                                    a 2. Halbzeit
                             .clear
 
                 .panel.panel-primary
