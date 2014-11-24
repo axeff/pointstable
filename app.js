@@ -107,7 +107,7 @@ app.io.route('ready', function(req) {
 });
 
 app.io.route('time', function(req) {
-    console.log(req.data.message);
+    app.io.broadcast('time', req.data);
 });
 
 // view engine setup

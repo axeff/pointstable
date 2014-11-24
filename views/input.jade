@@ -60,38 +60,38 @@ block content
                     .panel-heading
                         h3.panel-title Zeit
                     .panel-body
-                        .well.well-sm
-                            fieldset(data-role='controlgroup',class='left')
-                                .left
-                                    button(type="button",class="btn btn-primary controls",id="play")
-                                        span.glyphicon.glyphicon-play
-                                    button(type="button",class="btn btn-primary controls",id="pause")
-                                        span.glyphicon.glyphicon-pause
-                                .btn-group-sm.left(style='margin-left:5px;')
-                                    button(type="button",class="btn btn-sm btn-primary extra-small",id="plusTime")
-                                        span.glyphicon.glyphicon-plus
-                                    button(type="button",class="btn btn-sm btn-primary extra-small",id="minusTime")
-                                        span.glyphicon.glyphicon-minus
-                                .left(style='margin-left:5px;')
-                                    ul(class="nav nav-pills",id="timeMultiplicator")
-                                        li(role="presentation")
-                                            a(href="#", data-id="5") 5
-                                        li(role="presentation")
-                                            a(href="#", data-id="6") 6
-                                        li(role="presentation",class="active")
-                                            a(href="#", data-id="7") 7
-                            .right.label.label-warning#timerView 07:00
-                            button(type="button",class="btn btn-danger btn-lg right",id="refresh")
-                                span.glyphicon.glyphicon-repeat
-                            .clear
-                            ul(class="nav nav-pills nav-justified",id="halftimes")
-                                li(role="presentation",data-id="1sthalf",class="active")
-                                    a 1. Halbzeit
-                                li(role="presentation",data-id="pause")
-                                    a Pause
-                                li(role="presentation",data-id="2ndhalf")
-                                    a 2. Halbzeit
-                            .clear
+
+                        fieldset(data-role='controlgroup',class='left')
+                            .left
+                                button(type="button",class="btn btn-primary controls",id="play")
+                                    span.glyphicon.glyphicon-play
+                                button(type="button",class="btn btn-primary controls",id="pause")
+                                    span.glyphicon.glyphicon-pause
+                            .btn-group-sm.left(style='margin-left:5px;')
+                                button(type="button",class="btn btn-sm btn-primary extra-small",id="plusTime")
+                                    span.glyphicon.glyphicon-plus
+                                button(type="button",class="btn btn-sm btn-primary extra-small",id="minusTime")
+                                    span.glyphicon.glyphicon-minus
+                            .left(style='margin-left:5px;')
+                                ul(class="nav nav-pills",id="timeMultiplicator")
+                                    li(role="presentation")
+                                        a(href="#", data-id="5") 5
+                                    li(role="presentation")
+                                        a(href="#", data-id="6") 6
+                                    li(role="presentation",class="active")
+                                        a(href="#", data-id="7") 7
+                        .right.label.label-warning#timerView 07:00
+                        button(type="button",class="btn btn-danger btn-lg right",id="refresh")
+                            span.glyphicon.glyphicon-repeat
+                        .clear
+                        ul(class="nav nav-pills nav-justified",id="halftimes")
+                            li(role="presentation",data-id="1sthalf",class="active")
+                                a(href="#",data-id="1sthalf") 1. Halbzeit
+                            li(role="presentation",data-id="pause")
+                                a(href="#",data-id="pause") Pause
+                            li(role="presentation",data-id="2ndhalf")
+                                a(href="#",data-id="2ndhalf") 2. Halbzeit
+                        .clear
 
                 .panel.panel-primary
                     .panel-heading

@@ -110,14 +110,17 @@ $(function(){
 
     if (typeof window.timer == 'undefined') {
 
-        var gameState = '1sthalf';
+        window.gameState = '1sthalf';
 
         window.timer = new Timer(function(timeStr, time){
 
             $('#timerView').html(timeStr);
 
             io.emit('time', {
-                message: timeStr
+                message: {
+                    time: timeStr,
+                    gameState: window.gameState
+                }
             });
 
             //add blink if time < 10
@@ -133,7 +136,7 @@ $(function(){
                     .addClass('danger');
             }
 
-            if (time == -5 && gameState == 'pause') {
+            if (time == -5 && window.gameState == 'pause') {
                 $('#timerView')
                     .removeClass('danger')
                     .removeClass('blink');
@@ -142,7 +145,7 @@ $(function(){
                 this.setTimeMinutes($('#timeMultiplicator li.active a').data('id'));
 
                 this.pause();
-                gameState = '2ndhalf';
+                window.gameState = '2ndhalf';
             }
 
             if (time == -5 && gameState == '1sthalf') {
@@ -153,7 +156,7 @@ $(function(){
                 $('#halftimes li[data-id="pause"]').addClass('active');
                 this.setTime(115);
                 this.play();
-                gameState = 'pause';
+                window.gameState = 'pause';
             }
 
 
@@ -252,6 +255,16 @@ $(function(){
         if (event.keyCode == 32) { //space
 
         }
+    });
+
+    $('#halftimes li a').click(function(){
+
+        $(this).parents('ul').find('li').removeClass('active');
+        $(this).parent().addClass('active');
+
+        window.gameState = $(this).data('id');
+
+        return false;
     });
 
 });
