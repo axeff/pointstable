@@ -1,0 +1,36 @@
+@font-face {
+    font-family: digital;
+    src: url(/fonts/Digital-Dismay.otf);
+}
+
+#teams span {
+    text-transform: capitalize;
+    font-size: 6vw;
+}
+#points {
+    font-family: digital;
+    font-size: 50vw;
+}
+
+#time {
+    font-size: 6vw;
+}
+
+.blink {
+    color: #b43333;
+}
+
+#points {
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+}
+
+#points > .digits > div {
+    width: 50%;
+    text-align: center;
+}
+
+#points > .digits > div > span.digit {
+
+}

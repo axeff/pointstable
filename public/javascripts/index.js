@@ -14,9 +14,6 @@ $(function(){
         $.each(data.message, function(key,value){
             if (key.indexOf("points") > -1) {
                 var newKey = key.replace('points','');
-                if (value <= 9){
-                    value = 0 + String(value);
-                }
                 $('#points .digits .' + newKey).html(value);
             } else {
                 $('#' + key).html(value);
@@ -26,7 +23,14 @@ $(function(){
     })
 
     io.on('time', function(data) {
-        $('#time').html(data.message.gameState + ': ' + data.message.time);
+        var time = data.message.time;
+        if (time == '00:10') {
+            $('#time').addClass('blink');
+        }
+        if (time == '00:00') {
+            $('#time').removeClass('blink');
+        }
+        $('#time').html(time);
     })
 
     io.emit('ready') ;

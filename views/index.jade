@@ -2,9 +2,10 @@ extends layout
 
 block append head
     script(src='/javascripts/index.js')
+    link(rel='stylesheet', href='/stylesheets/index.css')
 
 block content
-    #frontend
+    #content
         #teams
             .left
                 span#team1= 'Team 1'
@@ -13,15 +14,15 @@ block content
 
         .clear
 
-        #time
+        #time.center 00:00
 
         #points
             .digits
-                span.left
-                    div(class="digit _0 dleft team1") 00
+                .left
+                    span(class="digit _0 team1") 0
 
-                span.right
-                    div(class="digit _0 dright team2") 00
+                .right
+                    span(class="digit _0 team2") 0
 
 
 

@@ -67,9 +67,6 @@ ul.nav a {
 .pointer:hover {
     cursor: pointer;
 }
-#content {
-    padding: 20px;
-}
 
 #footer {
     position: inherit;
@@ -92,64 +89,6 @@ ul.nav a {
     margin-top: 10px;
 }
 
-.danger {
+.danger,.blink {
     background-color: #d9534f;
-}
-
-.blink {
-    -webkit-animation-name: blinker;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-
-    -moz-animation-name: blinker;
-    -moz-animation-duration: 1s;
-    -moz-animation-timing-function: linear;
-    -moz-animation-iteration-count: infinite;
-
-    animation-name: blinker;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-
-    background-color: #d9534f;
-}
-
-@-moz-keyframes blinker {
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
-}
-
-@-webkit-keyframes blinker {
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
-}
-
-@keyframes blinker {
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
-}
-
-.led {
-    margin: auto 10px;
-    padding-left: 6px;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background-color: #f0ad4e;
-    box-shadow: #000 0 -1px 6px 1px, inset #660 0 -1px 8px, #f0ad4e 0 3px 11px;
-}
-
-.led.active {
-    background-color: #5cb85c;
-    box-shadow: #000 0 -1px 6px 1px, inset #460 0 -1px 8px, #5cb85c 0 3px 11px;
-}
-
-.led span.glyphicon {
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
 }
