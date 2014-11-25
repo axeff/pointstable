@@ -108,6 +108,10 @@ app.io.route('ready', function(req) {
 
 app.io.route('time', function(req) {
     app.io.broadcast('time', req.data);
+
+    if (req.data.message.mirrorPush) {
+        app.io.broadcast('mirror');
+    }
 });
 
 // view engine setup

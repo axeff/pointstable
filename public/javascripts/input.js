@@ -112,16 +112,11 @@ $(function(){
 
         window.gameState = '1sthalf';
 
+        var mirrorPushed = false;
+
         window.timer = new Timer(function(timeStr, time){
 
             $('#timerView').html(timeStr);
-
-            io.emit('time', {
-                message: {
-                    time: timeStr,
-                    gameState: window.gameState
-                }
-            });
 
             //add blink if time < 10
             if (time == 10) {
@@ -144,6 +139,7 @@ $(function(){
                 $('#halftimes li[data-id="2ndhalf"]').addClass('active');
                 this.setTimeMinutes($('#timeMultiplicator li.active a').data('id'));
 
+                mirrorPushed = true;
                 this.pause();
                 window.gameState = '2ndhalf';
             }
@@ -162,6 +158,20 @@ $(function(){
 
             if (time < -5) {
                 this.pause();
+            }
+
+
+            io.emit('time', {
+                message: {
+                    time: timeStr,
+                    gameState: window.gameState,
+                    mirrorPush: mirrorPushed
+                }
+            });
+
+            if (mirrorPushed) {
+
+                mirrorPushed = false;
             }
 
 

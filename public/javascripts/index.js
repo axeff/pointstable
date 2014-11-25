@@ -1,3 +1,9 @@
+var halftimeTranlations = {
+    '1sthalf': "1. Halbzeit",
+    '2ndhalf': "2. Halbzeit",
+    'pause': "Pause"
+};
+
 $(function(){
     io.emit('registerViewer');
 
@@ -24,6 +30,7 @@ $(function(){
 
     io.on('time', function(data) {
         var time = data.message.time;
+        console.log(data.message);
         if (time == '00:10') {
             $('#time').addClass('blink');
         }
@@ -31,6 +38,7 @@ $(function(){
             $('#time').removeClass('blink');
         }
         $('#time').html(time);
+        $('#halftime').html(halftimeTranlations[data.message.gameState]);
     })
 
     io.emit('ready') ;
