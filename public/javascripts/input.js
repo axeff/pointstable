@@ -73,16 +73,17 @@ $(function(){
         });
     });
 
-    /*
+
     $('#refresh').bind('click',function(){
-        if(confirm("Spiel wirklich vorbei?")){
-            $('input').val('');
-            io.emit('names', {
-                message: {team1:'Team 1', team2:'Team 2', pointsteam1: 0, pointsteam2: 0}
-            });
-        }
+        $('input').val('');
+        io.emit('names', {
+            message: {team1:'Team 1', team2:'Team 2', pointsteam1: 0, pointsteam2: 0}
+        });
+        $('#halftimes li').removeClass('active');
+        $('#halftimes li:first').addClass('active');
+        $('#timeMultiplicator li.active a').trigger('click');
     });
-    */
+
 
     var radioBind = function(){
         if ($(this).is(':checked')) {
