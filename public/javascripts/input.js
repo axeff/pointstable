@@ -7,7 +7,7 @@ $(function(){
         $a = $('<a href="#"><span class="glyphicon glyphicon-random"></span></a>');
         $a.bind('click', function(){
             $elem = $(this);
-            io.emit('mirrorView', {message:{id:id}});
+            io.emit('mirrorView', {message:{id: id, force: true}});
             $elem.parent().toggleClass('active');
         });
         $badge = $('<span class="badge"></span>');
@@ -82,6 +82,8 @@ $(function(){
         $('#halftimes li').removeClass('active');
         $('#halftimes li:first').addClass('active');
         $('#timeMultiplicator li.active a').trigger('click');
+
+        io.emit('mirrorView', {message:{broadcast: true, reset: true}});
     });
 
 

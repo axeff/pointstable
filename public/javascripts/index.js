@@ -11,8 +11,18 @@ $(function(){
         io.emit('unregisterViewer');
     });
 
-    io.on('mirror', function(){
-        $('.left,.right').toggleClass('right left');
+    io.on('mirror', function(data){
+        if (data.message.force == true) {
+            $('.dleft,.dright').toggleClass('dright dleft');    
+        }
+        if (data.message.reset == true) {
+            $('.dleft, .dright').removeClass('right left');
+            $('.dleft').addClass('left');
+            $('.dright').addClass('right');
+        } else {
+            $('.left,.right').toggleClass('right left');    
+        }
+        
     });
 
     // Listen for the points event.

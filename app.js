@@ -81,7 +81,11 @@ app.io.route('unregisterViewer', function(req){
 });
 
 app.io.route('mirrorView', function(req){
-    registeredViewers[req.data.message.id].io.emit('mirror');
+    if (req.data.message.broadcast == true) {
+        app.io.broadcast('mirror', req.data);
+    } else {
+        registeredViewers[req.data.message.id].io.emit('mirror', req.data);
+    }
 });
 
 // Setup the points route, and emit broadcast.
@@ -110,7 +114,7 @@ app.io.route('time', function(req) {
     app.io.broadcast('time', req.data);
 
     if (req.data.message.mirrorPush) {
-        app.io.broadcast('mirror');
+        app.io.broadcast('mirror', {message: {force: false}});
     }
 });
 

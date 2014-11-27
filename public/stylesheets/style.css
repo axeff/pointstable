@@ -10,12 +10,11 @@ html,body{ margin:0; padding:0; height:100%; width:100%; }
 .clear {
     clear: both;
 }
-
-.left, .dleft {
+.left {
     float: left;
 }
 
-.right, .dright {
+.right {
     float: right;
 }
 
