@@ -9,6 +9,7 @@ $(function(){
             $elem = $(this);
             io.emit('mirrorView', {message:{id: id, force: true}});
             $elem.parent().toggleClass('active');
+            return false;
         });
         $badge = $('<span class="badge"></span>');
         $badge.append($a);
@@ -40,7 +41,7 @@ $(function(){
             var $display = $('#goals' + elem.data('id') + ' span');
             var oldValue = $display.html();
             $display.html(eval(oldValue + elem.data('val')));
-
+            return false;
         });
 
 
@@ -86,6 +87,8 @@ $(function(){
         $('#timeMultiplicator li.active a').trigger('click');
 
         io.emit('mirrorView', {message:{broadcast: true, reset: true}});
+
+        return false;
     });
 
 
@@ -108,6 +111,8 @@ $(function(){
         $newInput.find(':radio').on('change', radioBind);
         $('#teamNames').append($newInput);
         $('#teamNames').find(':text[name="teamName' + n + '"]').focus();
+
+        return false;
     });
 
     $(':radio').on('change', radioBind);
@@ -134,6 +139,9 @@ $(function(){
                 $('#timerView')
                     .removeClass('blink')
                     .addClass('danger');
+
+                //play buzz sound
+                io.emit('buzzer');
             }
 
             if (time == -5 && window.gameState == 'pause') {
@@ -232,22 +240,25 @@ $(function(){
 
     $('#play').click(function(){
         window.timer.play();
+        return false;
     });
 
     $('#pause').click(function(){
         window.timer.pause();
+        return false;
     });
 
     $('#timeMultiplicator a').click(function(){
         $(this).parents('ul').find('li').removeClass('active');
         $(this).parent().addClass('active');
         window.timer.setTimeMinutes($(this).data('id'));
+        return false;
     });
 
 
-    //bind play/pasue to space key (32)
+    //bind play/pause to space key (32)
     $(document).keydown(function(event) {
-        if($("input:not(:button)").is(":focus")) return; //Will fail if already focused.
+        if($("#teamNames input").is(":focus")) return; //Will fail if already focused.
 
         switch(event.keyCode) {
             case(32): //space
@@ -267,9 +278,7 @@ $(function(){
                 break;
         }
 
-        if (event.keyCode == 32) { //space
-
-        }
+        return false;
     });
 
     $('#halftimes li a').click(function(){

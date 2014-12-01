@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var md5 = require('MD5');
 var app = require('express.io')();
 var bodyParser = require('body-parser')
+var Mpg = require('mpg123')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
@@ -116,6 +117,11 @@ app.io.route('time', function(req) {
     if (req.data.message.mirrorPush) {
         app.io.broadcast('mirror', {message: {force: false}});
     }
+});
+
+//play buzz sound
+app.io.route('buzzer', function(req) {
+    var player = new Mpg().play('/home/pi/buzzer.mp3');
 });
 
 // view engine setup
