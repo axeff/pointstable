@@ -75,7 +75,9 @@ $(function(){
 
 
     $('#refresh').bind('click',function(){
-        $('input').val('');
+        $('input#team1, input#team2').val('');
+        $('#goalsteam1 span').html('0');
+        $('#goalsteam2 span').html('0');
         io.emit('names', {
             message: {team1:'Team 1', team2:'Team 2', pointsteam1: 0, pointsteam2: 0}
         });

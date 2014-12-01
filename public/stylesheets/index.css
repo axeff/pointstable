@@ -3,6 +3,10 @@
     src: url(/fonts/Digital-Dismay.otf);
 }
 
+body {
+    overflow: hidden;
+}
+
 #teams span {
     text-transform: capitalize;
     font-size: 6vw;
@@ -20,10 +24,13 @@
     color: #b43333;
 }
 
+#halftime {
+    font-size: 3vw;
+}
+
 #points {
     width: 100%;
     bottom: 0;
-    position: absolute;
 }
 
 #points > .digits > div {
