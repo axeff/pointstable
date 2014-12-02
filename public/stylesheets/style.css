@@ -6,6 +6,16 @@ body {
 
 html,body{ margin:0; padding:0; height:100%; width:100%; }
 
+img.logo {
+    position: fixed;
+    opacity: 0.1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+    filter: alpha(opacity=10);
+    -moz-opacity: 0.1;
+    -khtml-opacity: 0.1;
+    left: 20%;
+    overflow: hidden;
+}
 
 .clear {
     clear: both;
