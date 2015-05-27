@@ -1,8 +1,9 @@
 extends layout
 
 block append head
-    script(src='/javascripts/input.js')
+    script(src='/javascripts/linkedlist.js')
     script(src='/javascripts/timer.js')
+    script(src='/javascripts/input.js')
     script(src='/javascripts/bootstrap.min.js')
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/input.css')
@@ -69,13 +70,17 @@ block content
                                 button(type="button",class="btn btn-sm btn-primary extra-small",id="minusTime")
                                     span.glyphicon.glyphicon-minus
                             .left(style='margin-left:5px;')
-                                ul(class="nav nav-pills",id="timeMultiplicator")
+                                ul(class="nav nav-pills",id="timeMultiplicator",style="float:left;")
                                     li(role="presentation")
                                         a(href="#", data-id="5") 5
                                     li(role="presentation")
                                         a(href="#", data-id="6") 6
                                     li(role="presentation",class="active")
                                         a(href="#", data-id="7") 7
+                                ul#timeZero(class="nav nav-pills",style="float:left;")
+                                    li(role="presentation")
+                                        a(href="#", data-id="0") 0
+
                         .right.label.label-warning#timerView 07:00
                         .clear
                         ul(class="nav nav-pills nav-justified",id="halftimes")
@@ -92,18 +97,19 @@ block content
                             span#addTeamName.pointer.glyphicon.glyphicon-plus-sign(aria-hidden="true",style="position: absolute;right: 0px;top: -25px;")
                     .panel-body
                         #teamNames
-                            .input-group
-                                span.input-group-addon
-                                    input(type="radio",name="team1")
-                                input(type="text", class="form-control", name="teamName1",placeholder="Teamname", tabindex="1")
-                                span.input-group-addon
-                                    input(type="radio",name="team2")
-                            .input-group
-                                span.input-group-addon
-                                    input(type="radio",name="team1")
-                                input(type="text", class="form-control", name="teamName2", placeholder="Teamname", tabindex="2")
-                                span.input-group-addon
-                                    input(type="radio",name="team2")
+                            //
+                                .input-group
+                                    span.input-group-addon
+                                        input(type="radio",name="team1")
+                                    input(type="text", class="form-control", name="teamName1",placeholder="Teamname", tabindex="1")
+                                    span.input-group-addon
+                                        input(type="radio",name="team2")
+                                .input-group
+                                    span.input-group-addon
+                                        input(type="radio",name="team1")
+                                    input(type="text", class="form-control", name="teamName2", placeholder="Teamname", tabindex="2")
+                                    span.input-group-addon
+                                        input(type="radio",name="team2")
 
                 .panel.panel-primary
                     .panel-heading

@@ -4,6 +4,10 @@ var halftimeTranlations = {
     'pause': "Pause"
 };
 
+$(window).unload(function(){
+    io.emit('unregisterViewer');
+});
+
 $(function(){
     io.emit('registerViewer');
 
@@ -25,17 +29,23 @@ $(function(){
     });
 
     io.on('mirror', function(data){
+
+    var doMirrorStuff = function(data){
+
         if (data.message.force == true) {
-            $('.dleft,.dright').toggleClass('dright dleft');    
+            $('.dleft,.dright').toggleClass('dright dleft');
         }
         if (data.message.reset == true) {
             $('.dleft, .dright').removeClass('right left');
             $('.dleft').addClass('left');
             $('.dright').addClass('right');
         } else {
-            $('.left,.right').toggleClass('right left');    
+            $('.left,.right').toggleClass('right left');
         }
-        
+    }
+
+    io.on('mirror', function(data){
+        doMirrorStuff(data);
     });
 
     // Listen for the points event.
@@ -53,19 +63,27 @@ $(function(){
 
     io.on('time', function(data) {
         var time = data.message.time;
+        var timeStr = data.message.timeStr;
 
-        //is time in string format (i.e. "02:13")
-        if (isNaN(time)) {
-            if (hmsToSecondsOnly(time) <= 10) {
+        $('#halftime').html(halftimeTranlations[data.message.gameState]);
+
+        if (time >= 0) {
+            if (time <= 10 && time > 0) {
                 $('#time').addClass('blink');
-            } else {
+            }
+            else {
                 $('#time').removeClass('blink');
             }
 
-            $('#time').html(time);
+            $('#time').html(timeStr);
+
         }
-        $('#halftime').html(halftimeTranlations[data.message.gameState]);
+
+        if (data.message.mirrorPush == true) {
+            doMirrorStuff(data);
+        }
+
     })
 
-    io.emit('ready') ;
+    io.emit('ready');
 });

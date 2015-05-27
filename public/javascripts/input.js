@@ -2,7 +2,15 @@ $(function(){
     //register on server
     io.emit('registerInput');
 
+
     var mirrorPushed = false;
+
+    var linkedList = new LinkedList();
+    linkedList.append(new LinkedList.Node({'name':'1sthalf'}));
+    linkedList.append(new LinkedList.Node({'name':'pause'}));
+    linkedList.append(new LinkedList.Node({'name':'2ndhalf'}));
+
+    window.gameState = linkedList.first;
 
     //mirror monitor
     var addLi = function(id, ip){
@@ -24,7 +32,6 @@ $(function(){
         $('#viewers').html('');
         $.each(data, function(i,viewer){
             $('#viewers').append(addLi(i, viewer.ip));
-
         });
     });
 
@@ -76,7 +83,6 @@ $(function(){
         });
     });
 
-
     var radioBind = function(){
         if ($(this).is(':checked')) {
             var $target = $('#' + $(this).attr('name'));
@@ -84,28 +90,70 @@ $(function(){
 
             $target.val($value);
             $target.trigger('propertychange');
-
         }
-
     };
 
-    $('#addTeamName').click(function(){
+    var teamInputBind = function(){
+        var teamStore = [];
+        $.each($('#teamNames input:not(:radio)'), function(key,element){
+            teamStore.push({name: $(element).val()});
+        });
+        localStorage.setItem("teams", JSON.stringify(teamStore));
+        return false;
+    }
+
+    var addTeamInput = function(name){
+        var name = typeof name == "undefined" ? '' : name;
         var n = $('#teamNames .input-group').length + 1;
-        var newInput = '<div class="input-group"><span class="input-group-addon"><input type="radio" name="team1"></span><input tabindex="' + n + '" placeholder="Teamname" type="text" name="teamName' + n + '" value="" class="form-control"><span class="input-group-addon"><input type="radio" name="team2"></span></div>';
+        var newInput = '<div class="input-group"><span class="input-group-addon"><input type="radio" name="team1"></span><input value="' + name + '" tabindex="' + n + '" placeholder="Teamname" type="text" name="teamName' + n + '" value="" class="form-control"><span class="input-group-addon"><input type="radio" name="team2"></span></div>';
         $newInput = $(newInput);
         $newInput.find(':radio').on('change', radioBind);
+        $newInput.on('focusout', teamInputBind);
         $('#teamNames').append($newInput);
         $('#teamNames').find(':text[name="teamName' + n + '"]').focus();
 
         return false;
+    }
+
+    var teamsStore = JSON.parse(localStorage.getItem("teams"));
+    if (teamsStore != null) {
+        $.each(teamsStore, function(key, item){
+            addTeamInput(item.name);
+        });
+    }
+
+
+    $('#addTeamName').click(function(){
+        addTeamInput();
     });
-
     $(':radio').on('change', radioBind);
+    $('#teamNames input:not(:radio)').on('focusout', teamInputBind);
 
+    var mirrorPushed = false;
+
+    function updateView() {
+        window.gameState = window.gameState.next;
+
+        $('#timerView')
+            .removeClass('danger')
+            .removeClass('blink');
+        $('#halftimes li').removeClass('active');
+        $('#halftimes li[data-id="' + window.gameState.data.name + '"]').addClass('active');
+        if (window.gameState.data.name != 'pause'){
+            this.setTimeMinutes($('#timeMultiplicator li.active a').data('id'));
+        }
+
+        io.emit('time', {
+            message: {
+                timeStr: window.timer.getTimeStr(),
+                time: window.timer.getTime(),
+                gameState: window.gameState.data.name
+            }
+        });
+
+    }
 
     if (typeof window.timer == 'undefined') {
-
-        window.gameState = '1sthalf';
 
         window.timer = new Timer(function(timeStr, time){
 
@@ -125,21 +173,19 @@ $(function(){
 
                 //play buzz sound
                 io.emit('buzzer');
-
                 this.pause();
             }
 
-
             io.emit('time', {
                 message: {
-                    time: timeStr,
-                    gameState: window.gameState,
+                    timeStr: timeStr,
+                    time: time,
+                    gameState: window.gameState.data.name,
                     mirrorPush: mirrorPushed
                 }
             });
 
             if (mirrorPushed) {
-
                 mirrorPushed = false;
             }
 
@@ -173,17 +219,14 @@ $(function(){
     }
 
     holdit($('#plusTime'),function(n){
-        var x = n >= 30 ? 30 : n;
-        (x).times(function() {
+        (n).times(function() {
             window.timer.plusTime();
         })
 
     },300,1);
 
     holdit($('#minusTime'),function(n){
-        var n;
-        var x = n >= 30 ? 30 : n;
-        (x).times(function() {
+        (n).times(function() {
             window.timer.minusTime();
         })
 
@@ -206,10 +249,14 @@ $(function(){
         return false;
     });
 
+    $('#timeZero a').click(function(){
+        window.timer.setTimeMinutes(0);
+    });
+
 
     //bind play/pause to space key (32)
     $(document).keydown(function(event) {
-        if($("#teamNames input").is(":focus")) return; //Will fail if already focused.
+        if($("#teamNames input:not(:radio)").is(":focus")) return; //Will fail if already focused.
 
         switch(event.keyCode) {
             case(32): //space
@@ -249,7 +296,12 @@ $(function(){
             .removeClass('blink')
             .removeClass('danger');
 
-        window.gameState = $(this).data('id');
+        while (window.gameState.hasNext()){
+            window.gameState = window.gameState.next;
+            if (window.gameState.data.name == $(this).data('id')) {
+                break;
+            }
+        }
 
 
         io.emit('time', {

@@ -13,6 +13,10 @@ a.active {
     color: #f0ad4e;
 }
 
+img.logo {
+    top: 0%;
+}
+
 .right {
     float: right;
 }

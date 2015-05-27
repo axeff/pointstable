@@ -10,17 +10,21 @@ function Timer(callback){
         return this.time;
     }
 
+    this.getTimeStr = function (){
+        return this.strZeit;
+    }
+
     this.setTime = function(time){
         this.time = time;
         this.timeToString();
-        this.renderTime();
+        //this.renderTime();
         return this;
     }
 
     this.setTimeMinutes = function (minutes){
         this.time = minutes * 60;
         this.timeToString();
-        this.renderTime();
+        //this.renderTime();
         return this;
     }
 

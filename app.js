@@ -113,15 +113,15 @@ app.io.route('ready', function(req) {
 
 app.io.route('time', function(req) {
     app.io.broadcast('time', req.data);
-
-    if (req.data.message.mirrorPush) {
-        app.io.broadcast('mirror', {message: {force: false}});
-    }
 });
 
 //play buzz sound
 app.io.route('buzzer', function(req) {
     var player = new Mpg().play('/home/pi/buzzer.mp3');
+});
+
+app.io.on("error", function(e) {
+    console.log('caught error',e);
 });
 
 // view engine setup

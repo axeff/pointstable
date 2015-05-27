@@ -17,7 +17,7 @@ body {
 }
 
 #time {
-    font-size: 6vw;
+    font-size: 8vw;
 }
 
 .blink {
@@ -31,6 +31,7 @@ body {
 #points {
     width: 100%;
     bottom: 0;
+    margin-top: -5vw;
 }
 
 #points > .digits > div {
