@@ -53,13 +53,17 @@ $(function(){
 
     io.on('time', function(data) {
         var time = data.message.time;
-        if (hmsToSecondsOnly(time) <= 10) {
-            $('#time').addClass('blink');
-        } else {
-            $('#time').removeClass('blink');
-        }
 
-        $('#time').html(time);
+        //is time in string format (i.e. "02:13")
+        if (isNaN(time)) {
+            if (hmsToSecondsOnly(time) <= 10) {
+                $('#time').addClass('blink');
+            } else {
+                $('#time').removeClass('blink');
+            }
+
+            $('#time').html(time);
+        }
         $('#halftime').html(halftimeTranlations[data.message.gameState]);
     })
 

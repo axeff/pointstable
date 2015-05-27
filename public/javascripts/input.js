@@ -2,6 +2,8 @@ $(function(){
     //register on server
     io.emit('registerInput');
 
+    var mirrorPushed = false;
+
     //mirror monitor
     var addLi = function(id, ip){
         $a = $('<a href="#"><span class="glyphicon glyphicon-random"></span></a>');
@@ -105,8 +107,6 @@ $(function(){
 
         window.gameState = '1sthalf';
 
-        var mirrorPushed = false;
-
         window.timer = new Timer(function(timeStr, time){
 
             $('#timerView').html(timeStr);
@@ -118,7 +118,7 @@ $(function(){
                 }
             }
 
-            if (time <= 0) {
+            if (time == 0) {
                 $('#timerView')
                     .removeClass('blink')
                     .removeClass('danger');
@@ -236,16 +236,29 @@ $(function(){
 
     $('#halftimes li a').click(function(){
 
+        mirrorPushed ? false : true;
+
         $(this).parents('ul').find('li').removeClass('active');
         $(this).parent().addClass('active');
 
-        window.timer.setTime($('#timeMultiplicator .active a').html()*60);
+        var newTime = $('#timeMultiplicator .active a').html()*60;
+
+        window.timer.setTime(newTime);
 
         $('#timerView')
             .removeClass('blink')
             .removeClass('danger');
 
         window.gameState = $(this).data('id');
+
+
+        io.emit('time', {
+            message: {
+                time: newTime,
+                gameState: window.gameState,
+                mirrorPush: mirrorPushed
+            }
+        });
 
         return false;
     });
