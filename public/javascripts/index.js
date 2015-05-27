@@ -7,6 +7,19 @@ var halftimeTranlations = {
 $(function(){
     io.emit('registerViewer');
 
+    function hmsToSecondsOnly(str) {
+        var p = str.split(':'),
+            s = 0, m = 1;
+
+        while (p.length > 0) {
+            s += m * parseInt(p.pop(), 10);
+            m *= 60;
+        }
+
+        return s;
+    }
+
+
     $(window).unload(function(){
         io.emit('unregisterViewer');
     });
@@ -40,13 +53,12 @@ $(function(){
 
     io.on('time', function(data) {
         var time = data.message.time;
-        console.log(data.message);
-        if (time == '00:10') {
+        if (hmsToSecondsOnly(time) <= 10) {
             $('#time').addClass('blink');
-        }
-        if (time == '00:00') {
+        } else {
             $('#time').removeClass('blink');
         }
+
         $('#time').html(time);
         $('#halftime').html(halftimeTranlations[data.message.gameState]);
     })

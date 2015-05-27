@@ -75,23 +75,6 @@ $(function(){
     });
 
 
-    $('#refresh').bind('click',function(){
-        $('input#team1, input#team2').val('');
-        $('#goalsteam1 span').html('0');
-        $('#goalsteam2 span').html('0');
-        io.emit('names', {
-            message: {team1:'Team 1', team2:'Team 2', pointsteam1: 0, pointsteam2: 0}
-        });
-        $('#halftimes li').removeClass('active');
-        $('#halftimes li:first').addClass('active');
-        $('#timeMultiplicator li.active a').trigger('click');
-
-        io.emit('mirrorView', {message:{broadcast: true, reset: true}});
-
-        return false;
-    });
-
-
     var radioBind = function(){
         if ($(this).is(':checked')) {
             var $target = $('#' + $(this).attr('name'));
@@ -135,41 +118,14 @@ $(function(){
                 }
             }
 
-            if (time == 0) {
+            if (time <= 0) {
                 $('#timerView')
                     .removeClass('blink')
-                    .addClass('danger');
+                    .removeClass('danger');
 
                 //play buzz sound
                 io.emit('buzzer');
-            }
 
-            if (time == -5 && window.gameState == 'pause') {
-                $('#timerView')
-                    .removeClass('danger')
-                    .removeClass('blink');
-                $('#halftimes li').removeClass('active');
-                $('#halftimes li[data-id="2ndhalf"]').addClass('active');
-                this.setTimeMinutes($('#timeMultiplicator li.active a').data('id'));
-
-                mirrorPushed = true;
-                this.pause();
-                window.gameState = '2ndhalf';
-            }
-
-            if (time == -5 && gameState == '1sthalf') {
-                $('#timerView')
-                    .removeClass('danger')
-                    .removeClass('blink');
-                $('#halftimes li').removeClass('active');
-                $('#halftimes li[data-id="pause"]').addClass('active');
-                this.setTime(115);
-                this.play();
-                window.gameState = 'pause';
-            }
-
-
-            if (time < -5) {
                 this.pause();
             }
 
@@ -189,10 +145,6 @@ $(function(){
 
 
         });
-    }
-
-    function fib(n){
-        return n<2?n:fib(n-1)+fib(n-2);
     }
 
     function holdit(btn, callback, start, speedup) {
@@ -221,8 +173,7 @@ $(function(){
     }
 
     holdit($('#plusTime'),function(n){
-        var f = fib(n)/10;
-        var x = f >= 30 ? 30 : f;
+        var x = n >= 30 ? 30 : n;
         (x).times(function() {
             window.timer.plusTime();
         })
@@ -230,8 +181,8 @@ $(function(){
     },300,1);
 
     holdit($('#minusTime'),function(n){
-        var f = fib(n)/10;
-        var x = f >= 30 ? 30 : f;
+        var n;
+        var x = n >= 30 ? 30 : n;
         (x).times(function() {
             window.timer.minusTime();
         })
@@ -276,6 +227,8 @@ $(function(){
             case(48): //0
                 $('.goals.plus[data-id="team2"]').click();
                 break;
+            default:
+                return true;
         }
 
         return false;
@@ -285,6 +238,12 @@ $(function(){
 
         $(this).parents('ul').find('li').removeClass('active');
         $(this).parent().addClass('active');
+
+        window.timer.setTime($('#timeMultiplicator .active a').html()*60);
+
+        $('#timerView')
+            .removeClass('blink')
+            .removeClass('danger');
 
         window.gameState = $(this).data('id');
 
