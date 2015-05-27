@@ -1,3 +1,4 @@
+'use strict';
 var halftimeTranlations = {
     '1sthalf': "1. Halbzeit",
     '2ndhalf': "2. Halbzeit",
@@ -11,24 +12,9 @@ $(window).unload(function(){
 $(function(){
     io.emit('registerViewer');
 
-    function hmsToSecondsOnly(str) {
-        var p = str.split(':'),
-            s = 0, m = 1;
-
-        while (p.length > 0) {
-            s += m * parseInt(p.pop(), 10);
-            m *= 60;
-        }
-
-        return s;
-    }
-
-
     $(window).unload(function(){
         io.emit('unregisterViewer');
     });
-
-    io.on('mirror', function(data){
 
     var doMirrorStuff = function(data){
 
@@ -42,7 +28,7 @@ $(function(){
         } else {
             $('.left,.right').toggleClass('right left');
         }
-    }
+    };
 
     io.on('mirror', function(data){
         doMirrorStuff(data);
@@ -59,7 +45,7 @@ $(function(){
             }
 
         });
-    })
+    });
 
     io.on('time', function(data) {
         var time = data.message.time;
@@ -83,7 +69,7 @@ $(function(){
             doMirrorStuff(data);
         }
 
-    })
+    });
 
     io.emit('ready');
 });

@@ -5,13 +5,6 @@ $(function(){
 
     var mirrorPushed = false;
 
-    var linkedList = new LinkedList();
-    linkedList.append(new LinkedList.Node({'name':'1sthalf'}));
-    linkedList.append(new LinkedList.Node({'name':'pause'}));
-    linkedList.append(new LinkedList.Node({'name':'2ndhalf'}));
-
-    window.gameState = linkedList.first;
-
     //mirror monitor
     var addLi = function(id, ip){
         $a = $('<a href="#"><span class="glyphicon glyphicon-random"></span></a>');
@@ -131,29 +124,9 @@ $(function(){
 
     var mirrorPushed = false;
 
-    function updateView() {
-        window.gameState = window.gameState.next;
-
-        $('#timerView')
-            .removeClass('danger')
-            .removeClass('blink');
-        $('#halftimes li').removeClass('active');
-        $('#halftimes li[data-id="' + window.gameState.data.name + '"]').addClass('active');
-        if (window.gameState.data.name != 'pause'){
-            this.setTimeMinutes($('#timeMultiplicator li.active a').data('id'));
-        }
-
-        io.emit('time', {
-            message: {
-                timeStr: window.timer.getTimeStr(),
-                time: window.timer.getTime(),
-                gameState: window.gameState.data.name
-            }
-        });
-
-    }
-
     if (typeof window.timer == 'undefined') {
+
+        window.gameState = '1sthalf';
 
         window.timer = new Timer(function(timeStr, time){
 
@@ -180,7 +153,7 @@ $(function(){
                 message: {
                     timeStr: timeStr,
                     time: time,
-                    gameState: window.gameState.data.name,
+                    gameState: window.gameState,
                     mirrorPush: mirrorPushed
                 }
             });
@@ -283,7 +256,7 @@ $(function(){
 
     $('#halftimes li a').click(function(){
 
-        mirrorPushed ? false : true;
+        mirrorPushed = mirrorPushed ? false : true;
 
         $(this).parents('ul').find('li').removeClass('active');
         $(this).parent().addClass('active');
@@ -296,13 +269,7 @@ $(function(){
             .removeClass('blink')
             .removeClass('danger');
 
-        while (window.gameState.hasNext()){
-            window.gameState = window.gameState.next;
-            if (window.gameState.data.name == $(this).data('id')) {
-                break;
-            }
-        }
-
+        window.gameState = $(this).data('id');
 
         io.emit('time', {
             message: {

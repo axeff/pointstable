@@ -17,14 +17,14 @@ function Timer(callback){
     this.setTime = function(time){
         this.time = time;
         this.timeToString();
-        //this.renderTime();
+        this.renderTime();
         return this;
     }
 
     this.setTimeMinutes = function (minutes){
         this.time = minutes * 60;
         this.timeToString();
-        //this.renderTime();
+        this.renderTime();
         return this;
     }
 

@@ -112,6 +112,7 @@ app.io.route('ready', function(req) {
 });
 
 app.io.route('time', function(req) {
+    console.log(req.data);
     app.io.broadcast('time', req.data);
 });
 
