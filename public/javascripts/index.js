@@ -10,11 +10,10 @@ $(window).unload(function(){
 });
 
 $(function(){
-    io.emit('registerViewer');
 
-    $(window).unload(function(){
-        io.emit('unregisterViewer');
-    });
+    io.on('connect',function(){
+        io.emit(['registerViewer', 'ready']);
+    })
 
     var doMirrorStuff = function(data){
 
@@ -71,5 +70,5 @@ $(function(){
 
     });
 
-    io.emit('ready');
+
 });

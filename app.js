@@ -112,13 +112,16 @@ app.io.route('ready', function(req) {
 });
 
 app.io.route('time', function(req) {
-    console.log(req.data);
     app.io.broadcast('time', req.data);
 });
 
 //play buzz sound
 app.io.route('buzzer', function(req) {
-    var player = new Mpg().play('/home/pi/buzzer.mp3');
+    try {
+        var player = new Mpg().play('/home/pi/buzzer.mp3');
+    } catch (err) {
+        console.error("Mpg123 caused error, possibly file not found.", err);
+    }
 });
 
 app.io.on("error", function(e) {
