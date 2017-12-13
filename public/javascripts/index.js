@@ -12,7 +12,7 @@ $(window).unload(function(){
 $(function(){
 
     io.on('connect',function(){
-        io.emit(['registerViewer', 'ready']);
+        io.emit('registerViewer', ['ready']);
     })
 
     var doMirrorStuff = function(data){

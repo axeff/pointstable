@@ -52,7 +52,6 @@ var pointsStore = {};
 var registeredInputs = [], registeredViewers = {};
 
 app.io.route('registerInput', function(req){
-
     req.id = registeredInputs.length + 1;
     registeredInputs.push(req);
     var sendViewersToInputs = {};
@@ -63,7 +62,6 @@ app.io.route('registerInput', function(req){
 });
 
 app.io.route('registerViewer', function(req){
-
     req.id = md5(req.handshake.address.address);
     registeredViewers[req.id] = req;
     var sendViewersToInputs = {};
@@ -74,7 +72,6 @@ app.io.route('registerViewer', function(req){
     for (var i in registeredInputs) {
         registeredInputs[i].io.emit('registeredViewers', sendViewersToInputs);
     }
-
 });
 
 app.io.route('unregisterViewer', function(req){
@@ -118,7 +115,7 @@ app.io.route('time', function(req) {
 //play buzz sound
 app.io.route('buzzer', function(req) {
     try {
-        var player = new Mpg().play('/home/pi/buzzer.mp3');
+        var player = new Mpg().play('./buzzer.mp3');
     } catch (err) {
         console.error("Mpg123 caused error, possibly file not found.", err);
     }
