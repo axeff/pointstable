@@ -15,6 +15,14 @@
   http://127.0.0.1:3000/input
 ```
 
+You can control goals and time using keyboard:
+  * **1**:      Team left goal down
+  * **2**:      Team left goal up
+  * **9**:      Team right goal down
+  * **0**:      Team right goal up
+  * **space**:  play/pause
+
+
 ## 2. open the view-instances as followed
 
 ```
