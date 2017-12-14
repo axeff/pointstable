@@ -6,7 +6,7 @@
 
 # run app via node
 ```
-  node app start
+  node app --port 3000
 ```
 
 ## 1. open controller part in browser
