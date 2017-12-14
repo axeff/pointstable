@@ -6,8 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var md5 = require('MD5');
 var app = require('express.io')();
-var bodyParser = require('body-parser')
-var Mpg = require('mpg123')
+var bodyParser = require('body-parser');
+var Mpg = require('mpg123');
+var args = require('commander');
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
@@ -28,9 +29,17 @@ var routes = require('./routes/index');
 var users = require('./routes/input');
 var teams = require('./routes/teams');
 
+args.option('-p, --port <n>').parse(process.argv);
+
+if (typeof args.port === 'undefined') {
+  console.warn('Port not provided with --port option. Fallback is port 3000');
+}
+
+var port = args.port || 3000;
+
 app.http().io();
 
-app.listen(3000);
+app.listen(port);
 
 /*
 var teamsSchema = MongoClient.Schema({

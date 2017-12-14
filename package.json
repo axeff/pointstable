@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "coffee-script": "^1.12.7",
+    "commander": "^2.12.2",
     "connect": "^3.6.5"
   }
 }

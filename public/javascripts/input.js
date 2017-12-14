@@ -1,4 +1,12 @@
 $(function(){
+    $(window).focus(function() {
+      $('body').removeClass('inactive');
+    });
+
+    $(window).blur(function() {
+      $('body').addClass('inactive');
+    });
+
     //register on server
     io.emit('registerInput');
 
